@@ -4,8 +4,14 @@
 #define MAXPTRN 11
 #define FADESTEP 10
 
+#include "Led_Patterns.h"
+#include "Hebrew_Letter_patterns.h"
+#include "Unicode_Patterns.h"
+
 #include <Adafruit_NeoPixel.h>
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(80, PIN, NEO_GRB + NEO_KHZ800);
+
+
 
 class pattern {
 public:
@@ -64,41 +70,15 @@ public:
 
   }
 
-  void buildResh() {
-    ptrnSize = 5;
-    char xVecTMP[5] = { 
-      1,2,3,3,3             };
-    char yVecTMP[5] = { 
-      0,0,0,1,2            };
-    updateVec(xVecTMP, yVecTMP);   
+  void buildShape(char ptrn_x_vec[], char ptrn_y_vec[],byte s_ptrn)
+  {
+    ptrnSize = s_ptrn;
+    for (byte i=0; i<s_ptrn; i++)
+    {
+      updateVec(ptrn_x_vec, ptrn_y_vec);
+    }
   }
-
-  void buildVav() {
-    ptrnSize = 4;
-    char xVecTMP[4] = {    
-      0,1,1,1               };
-    char yVecTMP[4] = {   
-      0,0,1,2             };
-    updateVec(xVecTMP, yVecTMP);   
-  } 
-
-  void buildTaf() {
-    ptrnSize = 9;
-    char xVecTMP[9] = {     
-      1,2,3,3,3,1,1,1,0                };
-    char yVecTMP[9] = {  
-      1,1,1,2,3,1,2,3,3             };
-    updateVec(xVecTMP, yVecTMP);   
-  }     
-
-  void buildHeart() {
-    ptrnSize = 11;
-    char xVecTMP[11] = {     
-      1,3,0,1,2,3,4,1,2,3,2                };
-    char yVecTMP[11] = {   
-      0,0,1,1,1,1,1,2,2,2,3             };
-    updateVec(xVecTMP, yVecTMP);   
-  }     
+ 
 
 private:
   char xVec[MAXPTRN];
@@ -120,10 +100,12 @@ void setup() {
 void loop() {
 
   pattern Resh,Vav,Taf,Heart;
-  Resh.buildResh();
-  Vav.buildVav();
-  Taf.buildTaf();
-  Heart.buildHeart();
+  
+  BUILD_SHAPE(RESH_PATTERN_X,RESH_PATTERN_Y,RESH_PATTERN_SIZE,Resh);
+  BUILD_SHAPE(VAV_PATTERN_X,VAV_PATTERN_Y,VAV_PATTERN_SIZE,Vav);
+  BUILD_SHAPE(TAF_PATTERN_X,TAF_PATTERN_Y,TAF_PATTERN_SIZE,Taf);
+  BUILD_SHAPE(HEART_PATTERN_X,HEART_PATTERN_Y,HEART_PATTERN_SIZE,Heart);
+
   char y=0;
   for (char x=-5; x<COL-4;x++)    
   {

@@ -1,0 +1,16 @@
+#ifndef HEBREW_LETTER_PATTERN
+#define HEBREW_LETTER_PATTERN
+
+#define VAV_PATTERN_X 0,1,1,1
+#define VAV_PATTERN_Y 0,0,1,2
+#define VAV_PATTERN_SIZE 4
+
+#define RESH_PATTERN_X 1,2,3,3,3
+#define RESH_PATTERN_Y 0,0,0,1,2
+#define RESH_PATTERN_SIZE 5
+
+#define TAF_PATTERN_X 1,2,3,3,3,1,1,1,0
+#define TAF_PATTERN_Y 1,1,1,2,3,1,2,3,3
+#define TAF_PATTERN_SIZE 9
+
+#endif
