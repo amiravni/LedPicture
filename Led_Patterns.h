@@ -60,11 +60,8 @@ uint32_t Wheel(int WheelPos) {
 
 class pattern {
 public:
-  pattern() {
-    biasX = 0;
-    biasY = 0;
-      for ( char d=0;d<MAXPTRN;d++)    fadeDir[d]=false;
-  }
+  pattern(): ptrnSize(0),biasX(0),biasY(0),xVec(NULL),yVec(NULL),color(NULL),fadeDir(NULL) 
+  {}
 
   void printPattern(boolean isShow) {
 
@@ -106,8 +103,11 @@ public:
     biasY = biasYTMP;
   }  
 
-  void updateVec(char* xVecTMP, char* yVecTMP) {
-
+  void updateVec(char* xVecTMP, char* yVecTMP)
+  {
+    if(xVec == NULL || yVec == NULL)
+      return;
+    
     for (char i=0;i<ptrnSize;i++) {
       xVec[i] = xVecTMP[i];
       yVec[i] = yVecTMP[i];
@@ -115,28 +115,34 @@ public:
 
   }
 
+  void allocateShape(byte s_ptrn)
+  {
+    if (s_ptrn <= MAXPTRN)
+    {
+      xVec = (char * )malloc(sizeof(char)*s_ptrn);
+      yVec = (char * )malloc(sizeof(char)*s_ptrn);
+      color =(uint32_t * )malloc(sizeof(uint32_t)*s_ptrn);
+      fadeDir = (boolean * )malloc(sizeof(boolean)*s_ptrn);
+      for (byte i=0; i<s_ptrn; i++)
+        fadeDir[i] = false;
+    }
+  }
+
   void buildShape(char ptrn_x_vec[], char ptrn_y_vec[],byte s_ptrn)
   {
     ptrnSize = s_ptrn;
-    for (byte i=0; i<s_ptrn; i++)
-    {
-      updateVec(ptrn_x_vec, ptrn_y_vec);
-    }
+    allocateShape(s_ptrn);
+    updateVec(ptrn_x_vec, ptrn_y_vec);
   }
  
-
 private:
-  char xVec[MAXPTRN];
-  char yVec[MAXPTRN];
-  uint32_t color[MAXPTRN];
+  char * xVec;
+  char * yVec;
+  uint32_t * color;
   char ptrnSize;
   char biasX;
   char biasY;  
-  boolean fadeDir[MAXPTRN];
-
+  boolean * fadeDir;
 };
-
-
-
 
 #endif

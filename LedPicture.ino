@@ -19,7 +19,7 @@ void setup() {
 void loop() {
 
   pattern Resh,Vav,Taf,Heart;
-  
+
   BUILD_SHAPE(RESH,Resh);
   BUILD_SHAPE(VAV,Vav);
   BUILD_SHAPE(TAF,Taf);
@@ -49,7 +49,7 @@ void loop() {
   Resh.printPattern(false);
   Vav.printPattern(false);   
   Taf.printPattern(false);  
- Heart.printPattern(false);  
+  Heart.printPattern(false);  
   strip.show();    
   delay(1000);
 
@@ -62,16 +62,14 @@ void loop() {
       Resh.printPattern(false);
       Vav.printPattern(false);   
       Taf.printPattern(false);  
-     Heart.printPattern(false);        
+      Heart.printPattern(false);        
 
       strip.show();
       delay(50);      
     }
-
   }
-
-
 }
+
 
 
 
