@@ -60,9 +60,20 @@ uint32_t Wheel(int WheelPos) {
 
 class pattern {
 public:
-  pattern(): ptrnSize(0),biasX(0),biasY(0),xVec(NULL),yVec(NULL),color(NULL),fadeDir(NULL) 
-  {}
-
+  pattern(): ptrnSize(0),biasX(0),biasY(0),xVec(NULL),yVec(NULL),color(NULL),fadeDir(NULL) {}
+  
+  ~pattern()
+   {
+     if (xVec != NULL)
+       free(xVec);
+     if (yVec != NULL)
+       free(yVec);
+     if (color != NULL)
+       free(color);
+     if (fadeDir != NULL)
+       free(fadeDir);
+   }
+   
   void printPattern(boolean isShow) {
 
     for ( char d=0;d<ptrnSize;d++)
@@ -108,10 +119,8 @@ public:
     if(xVec == NULL || yVec == NULL)
       return;
     
-    for (char i=0;i<ptrnSize;i++) {
-      xVec[i] = xVecTMP[i];
-      yVec[i] = yVecTMP[i];
-    }
+    memcpy(xVec, xVecTMP, ptrnSize);
+    memcpy(yVec, yVecTMP, ptrnSize);
 
   }
 
